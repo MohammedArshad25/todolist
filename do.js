@@ -1,20 +1,33 @@
-var item = document.querySelector("input");
+var ul = document.querySelector("ul"),
+     li = ul.querySelectorAll("li")
+     item = document.querySelector("input"),
+     clr= document.querySelector("button"),
+     spans = document.getElementsByTagName("span");
+
+
 item.addEventListener("keypress",function(e){
-if(e.which === 13 && this.value!="")
-{
-    var li = document.createElement("li");
-    var newDO = this.value;
-    document.getElementById("lekka").appendChild(li).append(newDO);
-    this.value="";
-}
+    if(e.which === 13)
+    {
+        var newli = document.createElement("li"),
+        trash = document.createElement("i"),
+        spanElement = document.createElement("span");
+        trash.classList.add("fas", "fa-trash-alt");
+        spanElement.append(trash);
+        ul.appendChild(newli).append(this.value,spanElement);
+        this.value="";
+        deleteTodo();
+    } 
 });
+function deleteTodo(){
+    for(let span of spans){
+      span.addEventListener ("click",function (){
+        span.parentElement.remove();
+        event.stopPropagation();
+      });
+    }
+  }
+clr.addEventListener("click",function(e){
+      ul.innerHTML="";
 
-clrbtn.addEventListener("click",function(){
-
-    var ol = document.getElementById("lekka");
-    var li = ol.getElementsByTagName('li');
-    var len= ol.getElementsByTagName('li').length;
-    var x=window.prompt("which element is to be removed");
-
-        ol.removeChild(li[x-1]);
-});
+  });
+  deleteTodo();
